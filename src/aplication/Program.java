@@ -15,7 +15,7 @@ public class Program {
 		Seller sel = new Seller(21, "Bob", "bobo@gmail.com", new Date(), 3000.00, dep);
 		
 		SellerDao selerDao = DaoFactory.createSellerDao();
-		
+		//
 		System.out.println(sel);
 		
 	}
