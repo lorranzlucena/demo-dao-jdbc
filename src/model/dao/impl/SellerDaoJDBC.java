@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,46 @@ public class SellerDaoJDBC implements SellerDao{
 	
 	@Override
 	public void insert(Seller obj) {
+		
+		PreparedStatement st = null;
+		try {
+			st = conn.prepareStatement(
+					"INSERT INTO seller"
+					+ "(Name, Email, BirthDate, BaseSalary, DepartmentID) "
+					+ "VALUES(?,?,?,?,?)",
+					Statement.RETURN_GENERATED_KEYS);//retornar o ID
+			
+			st.setString(1, obj.getName());
+			st.setString(2, obj.getEmail());
+			st.setDate(3, new java.sql.Date(obj.getBirth().getTime()));
+			st.setDouble(4, obj.getBaseSalary());
+			st.setInt(5, obj.getDerpartment().getId());
+		
+		
+			int rowsAfected = st.executeUpdate();
+			
+			if(rowsAfected > 0) {
+				//é usado para recuperar chaves geradas automaticamente pelo banco de dados após a execução de uma instrução SQL de inserção
+				ResultSet rs = st.getGeneratedKeys();
+				
+				if (rs.next()) {
+					int id = rs.getInt(1);// pegou id gerado
+					//como ja temos o ID agoar vou colocar ele no OBjeto
+					obj.setId(id);
+					
+				}else {
+					// se alguma coisa acontec de errado e não inseriu 
+					throw new DbException("Nenhuma linha foi afetada");
+				}
+				DB.closeResultSet(rs);
+			}
+		} catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		
+		}finally {
+			DB.closeStatement(st);
+			
+		}
 		
 	}
 
