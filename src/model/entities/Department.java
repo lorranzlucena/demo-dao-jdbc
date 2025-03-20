@@ -60,7 +60,7 @@ public class Department implements Serializable {
 	public String toString() {
 		return 
 				"\n id = " + id 
-				+ "\n name = " + name ;
+				+ " |  name = " + name ;
 	}
 
 }

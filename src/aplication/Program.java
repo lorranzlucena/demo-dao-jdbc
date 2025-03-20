@@ -12,6 +12,7 @@ public class Program {
 
 	public static void main(String[] args) {
 		SellerDao selerDao = DaoFactory.createSellerDao();
+	
 		System.out.println("=== Teste 1 : Seller FindById");
 		Seller sel = selerDao.findById(3);
 		System.out.println(sel);
@@ -36,7 +37,14 @@ public class Program {
 		Seller newSeller = new Seller(null, "Lorranz", "lorranz@gmail.com", new Date(), 4000.0, dep);
 		selerDao.insert(newSeller);
 		System.out.println("o novo seller tem o ID " + newSeller.getId());
+
 		
+		System.out.println("\n === Teste 5 : Seller UPDATE");
+
+		sel = selerDao.findById(1);// fiz uma busca por um seller(vendedor)
+		sel.setName("Marta coelho");
+		selerDao.update(sel);// atutalizei
+		System.out.println("UPDATE COMPLETED");
 	}
 
 }
