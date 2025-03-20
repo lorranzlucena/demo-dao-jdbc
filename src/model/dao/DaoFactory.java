@@ -1,5 +1,6 @@
 package model.dao;
 
+import db.DB;
 import model.dao.impl.SellerDaoJDBC;
 
 /**
@@ -8,14 +9,14 @@ import model.dao.impl.SellerDaoJDBC;
 public class DaoFactory {
 
 	/**
-	 * desse tipo faz com que o programa não conheça a implementação, apenas a inteface
+	 * desse tipo faz com que o programa não conheça a implementação, apenas a
+	 * inteface
+	 * 
 	 * @return
 	 */
 	public static SellerDao createSellerDao() {
-		
-		return new SellerDaoJDBC();
+
+		return new SellerDaoJDBC(DB.getConnection());
 	}
-	
-	
-	
+
 }
