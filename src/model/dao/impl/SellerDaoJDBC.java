@@ -54,7 +54,7 @@ public class SellerDaoJDBC implements SellerDao{
 				
 				if (rs.next()) {
 					int id = rs.getInt(1);// pegou id gerado
-					//como ja temos o ID agoar vou colocar ele no OBjeto
+					//como ja temos o ID agora vou colocar ele no OBjeto
 					obj.setId(id);
 					
 				}else {
